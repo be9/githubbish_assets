@@ -1,6 +1,10 @@
 = githubbish_assets
 
-Description goes here.
+Implement the Github's approach to bundling assets in a Rails 3 engine, as
+described in here:
+
+https://github.com/blog/551-optimizing-asset-bundling-and-serving-with-rails
+
 
 == Contributing to githubbish_assets
  
