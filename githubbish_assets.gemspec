@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{githubbish_assets}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Dashevskii"]
   s.date = %q{2011-01-06}
-  s.description = %q{TODO: longer description of your gem}
+  s.description = %q{Github style assets bundling in a Rails 3 engine}
   s.email = %q{olegdashevski@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -24,7 +24,11 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "githubbish_assets.gemspec",
     "lib/githubbish_assets.rb",
+    "lib/githubbish_assets/helper.rb",
+    "lib/githubbish_assets/packer.rb",
+    "lib/vendor/js_minimizer.rb",
     "test/helper.rb",
     "test/test_githubbish_assets.rb"
   ]
@@ -32,7 +36,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = %q{Github style assets bundling}
   s.test_files = [
     "test/helper.rb",
     "test/test_githubbish_assets.rb"
