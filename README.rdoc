@@ -20,4 +20,3 @@ https://github.com/blog/551-optimizing-asset-bundling-and-serving-with-rails
 
 Copyright (c) 2011 Oleg Dashevskii. See LICENSE.txt for
 further details.
-

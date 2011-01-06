@@ -62,7 +62,7 @@ module GithubbishAssets
     def stylesheet_include_files(bundles)
       output = ""
       bundles.each do |bundle|
-        files = recursive_file_list("public/stylesheets/#{bundle}", ".css")
+        files = GithubbishAssets::Packer.recursive_file_list("public/stylesheets/#{bundle}", ".css")
         files.each do |file|
           file = file.gsub('public/stylesheets/', '')
           output << stylesheet_link_tag(file) + "\n"
