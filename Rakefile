@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "githubbish_assets"
   gem.homepage = "http://github.com/be9/githubbish_assets"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Github style assets bundling}
+  gem.description = %Q{Github style assets bundling in a Rails 3 engine}
   gem.email = "olegdashevski@gmail.com"
   gem.authors = ["Oleg Dashevskii"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
