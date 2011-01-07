@@ -28,15 +28,7 @@ module GithubbishAssets
     end
 
     def javascript_include_files(bundles)
-      output = ""
-      bundles.each do |bundle|
-        files = GithubbishAssets::Packer.recursive_file_list("public/javascripts/#{bundle}", ".js")
-        files.each do |file|
-          file = file.gsub('public/javascripts/', '')
-          output << javascript_src_tag(file, {}) + "\n"
-        end
-      end
-      output.html_safe
+      _gh_include_files("public/javascripts", ".js", bundles) { |file| javascript_src_tag(file) }
     end
 
     def javascript_dev(*sources)
@@ -60,14 +52,22 @@ module GithubbishAssets
     end
 
     def stylesheet_include_files(bundles)
+      _gh_include_files("public/stylesheets", ".css", bundles) { |file| stylesheet_link_tag(file) }
+    end
+
+    private
+
+    def _gh_include_files(asset_root, ext, bundles)
+      p_asset_root = Rails.root + asset_root
       output = ""
+
       bundles.each do |bundle|
-        files = GithubbishAssets::Packer.recursive_file_list("public/stylesheets/#{bundle}", ".css")
+        files = RecursiveLister[p_asset_root + bundle.to_s, ext]
         files.each do |file|
-          file = file.gsub('public/stylesheets/', '')
-          output << stylesheet_link_tag(file) + "\n"
+          output << yield(file.relative_path_from(p_asset_root).to_s) << "\n"
         end
       end
+
       output.html_safe
     end
   end

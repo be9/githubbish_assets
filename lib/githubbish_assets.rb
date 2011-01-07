@@ -1,5 +1,6 @@
 require 'rails'
 require 'active_support'
+require 'githubbish_assets/lister'
 require 'githubbish_assets/packer'
 require 'githubbish_assets/helper'
 

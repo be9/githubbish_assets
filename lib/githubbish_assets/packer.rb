@@ -1,5 +1,4 @@
 require 'yui/compressor'
-require 'find'
 
 module GithubbishAssets
   class Packer
@@ -11,7 +10,7 @@ module GithubbishAssets
         require 'closure-compiler'
       end
 
-      pack('public/javascripts', '.js') do |target, files|
+      pack(Rails.root + 'public/javascripts', '.js') do |target, files|
         case GithubbishAssets.js_compressor
         when :closure
           opts = [ [:js_output_file, target] ]
@@ -36,38 +35,23 @@ module GithubbishAssets
     end
 
     def self.css
-      pack('public/stylesheets', '.css') do |target, files|
+      pack(Rails.root + 'public/stylesheets', '.css') do |target, files|
         compress_with_yui(YUI::CssCompressor.new(:line_break => 0), files, target)
       end
     end
 
-    def self.recursive_file_list(basedir, ext)
-      files = []
-      Find.find(basedir) do |path|
-        if FileTest.directory?(path)
-          if File.basename(path)[0] == ?. # Skip dot directories
-            Find.prune
-          else
-            next
-          end
-        end
-        files << path if File.extname(path) == ext
-      end
-      files.sort
-    end
-
-
     private
 
-    def self.pack(relpath, ext)
+    def self.pack(path, ext)
       targets = []
-      get_top_level_directories(relpath).each do |bundle_directory|
+      get_top_level_directories(path).each do |bundle_directory|
         bundle_name = bundle_directory.basename
+        next if bundle_name.to_s == 'dev'
 
-        files = recursive_file_list(bundle_directory, ext)
-        next if files.empty? || bundle_name == 'dev'
+        files = RecursiveLister[bundle_directory, ext]
+        next if files.empty?
 
-        target = Rails.root + relpath + "bundle_#{bundle_name}#{ext}"
+        target = path + "bundle_#{bundle_name}#{ext}"
 
         yield target, files
 
@@ -77,12 +61,8 @@ module GithubbishAssets
       targets
     end
 
-    def self.get_top_level_directories(base_path)
-      Dir.entries(Rails.root + base_path).collect do |path|
-        if path[0] != ?. && (Rails.root + base_path + path).directory?
-          path
-        end
-      end.compact
+    def self.get_top_level_directories(root_path)
+      root_path.children.select { |path| path.directory? }
     end
 
     def self.compress_with_yui(compressor, files, target)
