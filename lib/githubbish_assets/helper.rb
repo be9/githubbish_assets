@@ -28,7 +28,7 @@ module GithubbishAssets
     end
 
     def javascript_include_files(bundles)
-      _gh_include_files("public/javascripts", ".js", bundles) { |file| javascript_src_tag(file) }
+      _gh_include_files("public/javascripts", ".js", bundles) { |file| javascript_src_tag(file, {}) }
     end
 
     def javascript_dev(*sources)
