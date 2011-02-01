@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{githubbish_assets}
-  s.version = "0.1.3"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Oleg Dashevskii"]
-  s.date = %q{2011-01-30}
+  s.date = %q{2011-02-01}
   s.description = %q{Github style assets bundling in a Rails 3 engine}
   s.email = %q{olegdashevski@gmail.com}
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "VERSION",
     "githubbish_assets.gemspec",
     "lib/githubbish_assets.rb",
+    "lib/githubbish_assets/capistrano.rb",
     "lib/githubbish_assets/helper.rb",
     "lib/githubbish_assets/lister.rb",
     "lib/githubbish_assets/packer.rb",
