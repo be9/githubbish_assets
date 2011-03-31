@@ -95,6 +95,10 @@ module GithubbishAssets
           @file = File.open(@files.shift, 'r')
         end
       end
+
+      def close
+        @file && @file.close
+      end
     end
   end
 end
