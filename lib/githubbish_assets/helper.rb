@@ -34,8 +34,9 @@ module GithubbishAssets
     def javascript_dev(*sources)
       output = ""
       sources = sources.to_a
+      dev = Rails.env.development? || Rails.env.test?
       sources.each do |pair|
-        output << javascript_src_tag(Rails.env.development? ? "dev/#{pair[0]}" : pair[1], {})
+        output << javascript_src_tag(dev ? "dev/#{pair[0]}" : pair[1], {})
       end
       output.html_safe
     end
