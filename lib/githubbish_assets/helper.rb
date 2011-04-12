@@ -42,18 +42,26 @@ module GithubbishAssets
     end
 
     def stylesheet_bundle(*sources)
+      opts = sources.extract_options!
+
       sources = sources.to_a
-      bundle_files? ? stylesheet_include_bundles(sources) : stylesheet_include_files(sources)
+      if bundle_files?
+        stylesheet_include_bundles(sources, opts)
+      else
+        stylesheet_include_files(sources, opts)
+      end
     end
 
     # This method assumes you have manually bundled css using a rake command
     # or similar. So there better be bundle_* files.
-    def stylesheet_include_bundles(bundles)
-      stylesheet_link_tag(bundles.collect{ |b| "bundle_#{b}"})
+    def stylesheet_include_bundles(bundles, opts = {})
+      stylesheet_link_tag(bundles.collect{ |b| "bundle_#{b}"}, opts)
     end
 
-    def stylesheet_include_files(bundles)
-      _gh_include_files("public/stylesheets", ".css", bundles) { |file| stylesheet_link_tag(file) }
+    def stylesheet_include_files(bundles, opts = {})
+      _gh_include_files("public/stylesheets", ".css", bundles) do |file|
+        stylesheet_link_tag(file, opts)
+      end
     end
 
     private
