@@ -13,14 +13,10 @@ module GithubbishAssets
       pack(Rails.root + 'public/javascripts', '.js') do |target, files|
         case GithubbishAssets.js_compressor
         when :closure
-          opts = [ [:js_output_file, target] ]
+          opts = { :js_output_file => target, :js => files }
 
           if GithubbishAssets.closure_source_map
-            opts << [:create_source_map, "#{target}.map"]
-          end
-
-          files.each do |file|
-            opts << [:js, file]
+            opts[:create_source_map] = "#{target}.map"
           end
 
           Closure::Compiler.new(opts).compile('')
