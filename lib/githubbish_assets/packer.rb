@@ -41,8 +41,8 @@ module GithubbishAssets
     def self.pack(path, ext)
       targets = []
       get_top_level_directories(path).each do |bundle_directory|
-        bundle_name = bundle_directory.basename
-        next if bundle_name.to_s == 'dev'
+        bundle_name = bundle_directory.basename.to_s
+        next if bundle_name == 'dev' || bundle_name =~ /^\./
 
         files = RecursiveLister[bundle_directory, ext]
         next if files.empty?

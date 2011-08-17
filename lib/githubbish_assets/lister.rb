@@ -4,7 +4,11 @@ module GithubbishAssets
       files = []
 
       root.find do |path|
-        files << path if path.file? && path.extname == ext
+        if path.file? && path.extname == ext
+          files << path
+        elsif path.directory? && path.basename.to_s[0] == ?.
+          Find.prune
+        end
       end
 
       files.sort
